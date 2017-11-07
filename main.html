@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body id="main-body">
+<nav class="navbar navbar-inverse">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand">Weclome to Home II</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="index.html">Go To Homepage</a></li>
+      </ul>
+	  
+	   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="main.html">Go To Home I</a></li>
+      </ul>
+      <!-- <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Sign up <i class="fa fa-user-plus"></i></a></li>
+        <li><a href="#">Log in <i class="fa fa-user"></i></a></li>
+       
+      </ul> -->
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+  <div class="container" id="space">
+    
+  </div>
+
+  <div class="row text-center">
+    <div class="col-sm-2 col-sm-offset-1" class="jobs">
+      <h2 class="header-default" class="jobs-header"><img id="luminosity" width=90 src="img/off.png"></h2>
+      <h3 id="humi">Light: </h3>
+    </div>
+
+    <div class="col-sm-2" class="jobs">
+      <h2 class="header-default" class="jobs-header"><img width=120 src="img/TV.png"></h2>
+      <h3>TV</h3>
+        <button type="button" id="tv-button" class="btn btn-danger"><span class="glyphicon glyphicon-off"></span>On/Off</button>
+
+    
+    </div>
+    <div class="col-sm-2" class="jobs">
+      <h2 class="header-default" class="jobs-header"><img width=170 src="img/temp.png"></h2>
+      <h3>Temperature: </h3>
+      <div id="temp"></div>
+    </div>
+    <div class="col-sm-2" class="jobs">
+      <h2 class="header-default" class="jobs-header"><img width=120 src="img/hum.png"></h2>
+      <h3>Humidity: </h3>
+      <div id="hum"></div>
+    </div>
+    <div class="col-sm-2" class="jobs">
+      <h2 class="header-default" class="jobs-header"><img id="alarm" width=110 src="img/houseOK.png"></h2>
+     <h3>Flood Alarm</h3>
+	<div id="alarm"></div> 
+ </div>
+  </div>
+
+
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.2.1.min.js"></script>
+<script>
+var url="relay.php?command=";
+
+function activateRelay()
+{
+$.get(url + "r")
+           	.success( function(data){
+                        $("#test").html(data);
+		});
+ }
+
+function getLuminosityTemperatureHumidity(){
+    $.get(url + "thl")
+	.success( function(data){ 
+	    if(data!=="abc"){
+	      var light = $("#luminosity").attr('src');
+	      var lightOn = "img/on.png";
+	      var lightOff = "img/off.png";
+	      var houseOk = "img/houseOK.png";
+	      var houseNOk = "img/houseNOK.png"; 
+	      var parsedJSON = JSON.parse(data);
+	      $("#luminosity").attr('src', parsedJSON.lumina ? lightOn : lightOff) ;
+	      $("#temp").html(parsedJSON.temp + "C");
+          $("#hum").html(parsedJSON.humidity + "%");
+	    }
+	})
+}
+
+function switchTV(){
+   $.get(url + "tv")
+	.success( function(data){
+	   $("#tv-button").hasClass("btn-danger") === true ? 
+		$("#tv-button").removeClass("btn-danger").addClass("btn-success") : 
+		$("#tv-button").removeClass("btn-success").addClass("btn-danger"); 
+	})
+}
+
+//event binders
+$("#tv-button").click(switchTV);
+setInterval(getLuminosityTemperatureHumidity,10000);
+</script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</body>
+</html>

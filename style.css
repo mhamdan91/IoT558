@@ -1,0 +1,160 @@
+#content
+{
+	text-align: center;
+	padding-top: 11%;
+	text-shadow: 0px 4px 3px rgba(0, 0, 13, 0.4),
+				 0px 8px 13px rgba(0, 0, 13, 0.5),
+				 0px 18px 23px rgba(0, 0, 13, 0.1);
+}
+
+#link
+{
+	text-shadow: none;
+}
+#front
+{
+	display: table;
+	height: 800px;
+	width: 100%;
+	background: url(img/background.jpg);
+	background-size: cover;
+	background-position: 30% 38%;
+	color: white;
+	margin: 0px;
+}
+
+#cont1
+{
+	padding-top: 50px;
+	padding-bottom: 50px;
+
+}
+
+#cont2
+{
+	width: 1170px;
+	margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5;
+	padding-bottom: 5;
+	background-color: #DFE8EB;
+	background-positiodn: right;
+	width: 100%;
+}
+
+body
+{
+	font-family: Raleway;
+ }
+ 	
+ h1
+ {
+ 	/*font-weight: 700;*/
+ 	font-size: 5em;
+ }
+
+ h2
+ {
+ 	font-size: 3.5em;
+ }
+
+ html
+ {
+ 	height: 100%;
+ }
+
+ hr
+ {
+ 	width: 400px;
+ 	border-top: 1px solid #f8f8f8;
+ 	border-bottom: 1px solid rgba(0, 0, 0, 0.2)
+ }
+
+ .navbar-default {
+    background-color: #F8F8F8;
+    border-color: #E7E7E7;
+	/*#ecede8  #edeae8*/
+}
+
+
+.btn-transparent
+{
+	color: #fff;
+	border-color: #fff;
+	background-color: transparent;
+}
+.navbar
+{
+	margin-bottom: 0px;
+}
+
+.navbar-inverse
+{
+	background: #2c3e50
+}
+
+.cont-font
+{
+	font-size: 25px;
+}
+
+.cont-4-font
+{
+	font-size: 25px;
+}
+
+.cont3
+{
+	margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 50px;
+	padding-bottom: 50px;
+	background-color: white;
+}
+
+#footer
+{
+	background-color: #7E9096;
+	padding-top: 25px;
+	padding-bottom: 25px;
+	padding-left: 800px;
+	padding-right: 50px;
+}
+
+#btn-tv-off
+{
+	background-color: grey;
+
+}
+
+.jobs-header
+{
+	padding-top: 50px;
+	padding-bottom: 50px;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+#state
+{
+	background: red;
+	width: 50px;
+	height: 50px;
+	margin-left: auto ;
+  	margin-right: auto ;
+}
+
+#main-body
+{
+	background-color: #fffed8;
+	/*#DFE8EB;*/
+}
+
+.navbar-nav.active
+{
+	background-color: #2c3e51;
+}
