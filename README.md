@@ -1,4 +1,4 @@
-# Paranoid
+# IoT558
 
 IoT558 is Yet Another Arduino IoT Web App written in HTML with elements of javascript and PHP. 
 
