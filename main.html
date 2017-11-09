@@ -11,6 +11,16 @@ line {
  	border-top: 3px solid #f8f8f8;
  	border-bottom: 1px solid rgba(0, 0, 0, 0.2)
      }
+	 h55 { 
+    display: block;
+    font-size: .98em;
+ <!--   margin-top: 1.67em;
+    margin-bottom: 1.67em; -->
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+	 color: #ff0000
+}
 </style>
 </head>
 <body id="main-body">
@@ -53,31 +63,38 @@ line {
 	<h2>First Floor Monitor --- Arduino I</h2><br />
     <div class="col-sm-2 col-sm-offset-3" class="jobs">
       <h2 class="header-default" class="jobs-header"><img id="luminosity" width=90 src="img/off.png"></h2>
-      <h3 id="humi">Light: </h3>
+      <h3>Light: </h3>
 	  <button type="button" id="led-button" class="btn btn-danger"><span class="glyphicon glyphicon-off"></span>On/Off</button>
-	  	      <br /><br />
-		 <h5>Arduino Time Stamp :</h5>
-		 <h5>Server  Time Stamp :</h5>
-		 <h5>Display Time Stamp :</h5>
+	  	     <br />
+		 <h5>Arduino Time Stamp :</h5><div id="humiA" ></div>
+		 <h5>Server  Time Stamp :</h5><div id="humiS" ></div>
+		 <h5>Display Time Stamp :</h5><div id="humiD" ></div>
     </div>
 
     <div class="col-sm-2" class="jobs">
       <h2 class="header-default" class="jobs-header"><img width=170 src="img/temp.png"></h2>
       <h3>Temperature: </h3>
       <div id="temp"></div>
-	      <br /><br /><br />
-		 <h5>Arduino Time Stamp :</h5>
-		 <h5>Server  Time Stamp :</h5>
-		 <h5>Display Time Stamp :</h5>
+	      <br />
+		 <h5>Arduino Time Stamp --> Captured </h5>
+		 <h55>Nov-9-2017 || 15:40:15:150</h55>
+		 <h5>Arduino Time Stamp --> Captured </h5>
+		 <h55>Nov-9-2017 || 15:40:15:978</h55>
+		 		 <h5>Arduino Time Stamp --> Captured </h5>
+		 <h55>Nov-9-2017 || 15:40:16:028</h55>
     </div>
     <div class="col-sm-2" class="jobs">
       <h2 class="header-default" class="jobs-header"><img width=120 src="img/hum.png"></h2>
       <h3>Humidity: </h3>
       <div id="hum"></div>
-	      <br /><br /><br />
-		 <h5>Arduino Time Stamp :</h5>
-		 <h5>Server  Time Stamp :</h5>
-		 <h5>Display Time Stamp :</h5>
+	      <br />
+		 <h5>Arduino Time Stamp --> Captured </h5>
+		 <h55>Nov-9-2017 || 15:40:15:150</h55>
+		 <h5>Arduino Time Stamp --> Captured </h5>
+		 <h55>Nov-9-2017 || 15:40:15:978</h55>
+		 <h5>Arduino Time Stamp --> Captured </h5>
+		 <h55>Nov-9-2017 || 15:40:16:028</h55>
+		 
     </div>
   </div>
    <div class="row text-center">
@@ -90,19 +107,19 @@ line {
       <h2 class="header-default" class="jobs-header"><img width=120 src="img/motion.png"></h2>
       <h3>Motion Detection</h3>
 	  <div id="motion"></div> 
-	      <br /><br />
-		 <h5>Arduino Time Stamp :</h5>
-		 <h5>Server  Time Stamp :</h5>
-		 <h5>Display Time Stamp :</h5>
+	      <br />
+		 <h5>Arduino Time Stamp</h5><div id="MOTA" ></div>
+		 <h5>Server  Time Stamp</h5><div id="MOTS" ></div>
+		 <h5>Display Time Stamp</h5><div id="MOTD" ></div>
     
     </div>
 	<div class="col-sm-2" class="jobs">
       <h2 class="header-default" class="jobs-header"><img id="alarm" width=110 src="img/houseOK.png"></h2>
       <h3>Flood Alarm</h3>
-	      <br /><br />
-		 <h5>Arduino Time Stamp :</h5>
-		 <h5>Server  Time Stamp :</h5>
-		 <h5>Display Time Stamp :</h5>
+	      <br />
+		 <h5>Arduino Time Stamp :NO ACTION </h5>
+		 <h5>Server  Time Stamp :NO ACTION </h5>
+		 <h5>Display Time Stamp :NO ACTION </h5>
 	</div>
 	
 	
@@ -123,6 +140,7 @@ $.get(url + "r")
 
 function getTemperatureHumidity(){
     $.get(url + "thl")
+
 	.success( function(data){ 
 	    if(data!=="abc"){
 	      var light = $("#luminosity").attr('src');
@@ -138,7 +156,7 @@ function getTemperatureHumidity(){
 	})
 }
 
-function getMotionFloorAlarm(){
+function getMotionFloodAlarm(){
     $.get(url_2 + "molarm")
 	.success( function(data){ 
 	    if(data!=="abc"){
@@ -148,38 +166,68 @@ function getMotionFloorAlarm(){
 	      var parsedJSON = JSON.parse(data);
 		  var activeMo="Motion Detected!!";
 		  var inctiveMo="No Motion Detected";
+		  var ARD= "Nov-9-2017 || 15:40:15:150";
+		  var SERV= "Nov-9-2017 || 15:40:16:788";
+		  var DISP= "Nov-9-2017 || 15:40:17:028";
 		  $("#alarm").attr('src', parsedJSON.alarm ? houseOk : houseNOk) ;
 	      $("#motion").html(parsedJSON.ping ? activeMo : inctiveMo);
-	    }
+	      $("#MOTA").html(parsedJSON.ping ? ARD : "");
+		  $("#MOTS").html(parsedJSON.ping ? SERV : "");
+		  $("#MOTD").html(parsedJSON.ping ? DISP : "");
+		}
 	})
 }
+
 
 function switchLedON(){
-   $.get(url + "ledon")
-	.success( function(data){
-	   $("#led-button").hasClass("btn-danger") === true ? 
-	   $("#led-button").removeClass("btn-danger").addClass("btn-success") : 
-	  <!-- $("#led-button").removeClass("btn-success").addClass("btn-danger"); -->
-	})
-}
+	
+		
+     $("#led-button").hasClass("btn-danger") === true ?
+     $("#led-button").removeClass("btn-danger").addClass("btn-success") :
+	 $("#led-button").removeClass("btn-success").addClass("btn-danger"); 
+		
+		
+	var lightOn = "img/on.png";
+	var lightOff = "img/off.png";
+  
+  	
+	 $("#led-button").hasClass("btn-success") === true ?
+	 $("#luminosity").attr('src', lightOn) : 
+	 $("#luminosity").attr('src', lightOff);
+	 
+	 $("#led-button").hasClass("btn-success") === true ?
+	 $("#humiA").html("Nov-9-2017 || 15:40:15:150"):
+	 $("#humiA").html("NO ACTION");  
+	 
+	$("#led-button").hasClass("btn-success") === true ?
+	 $("#humiS").html("Nov-9-2017 || 15:40:15:150"):
+	 $("#humiS").html("NO ACTION");  
+	 
+	 $("#led-button").hasClass("btn-success") === true ?
+	 $("#humiD").html("Nov-9-2017 || 15:40:15:150"):
+	 $("#humiD").html("NO ACTION");  
 
+	
+	 $("#led-button").hasClass("btn-success") === true ?
+	 $.get(url + "ledon") :
+	 $.get(url + "ledoff")  
+	 
 
-function switchLedoff(){
-   $.get(url + "ledoff")
 	.success( function(data){
-	   $("#led-button").hasClass("btn-danger") === true ? 
-	   $("#led-button").removeClass("btn-danger").addClass("btn-success") : 
-	  <!-- $("#led-button").removeClass("btn-success").addClass("btn-danger"); -->
+
 	})
 }
 
 
 //event binders
-$("#led-button").click(switchLedoff);
 $("#led-button").click(switchLedON);
 setInterval(getTemperatureHumidity,10000);
-setInterval(getMotionFloorAlarm,6000);
-
+setInterval(getMotionFloodAlarm,6000);
+$("#temp").html("19 C");
+$("#hum").html("16 %");
+var activeMo="Motion Detected!!";
+var inctiveMo="No Motion Detected";
+$("#motion").html(false ? activeMo : inctiveMo);
 </script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </body>
