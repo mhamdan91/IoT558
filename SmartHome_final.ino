@@ -3,16 +3,15 @@
  * 
  * 
  */
-
-#include <IRremote.h>
-#include <NewTone.h>
+//#include <NewTone.h>
+//#include <IRremote.h>
 #include <EEPROM.h>
 #include <Wire.h>
 #include <ArduinoJson.h>
 
 #include <dht.h>
 #define CDS_INPUT 0
-#define DHT11_PIN 2
+#define DHT11_PIN 8
 #define DARK 200
 #define RELAY 4
 #define PROBE_WATER 1
@@ -33,7 +32,7 @@ float sinVal;
 int toneVal;
 
 dht DHT;
-IRsend irsend;
+//IRsend irsend;
 
 void setup() 
 {
@@ -50,7 +49,6 @@ void setup()
   pinMode(motor_speedPin, OUTPUT);
 
   pinMode(ALARM, OUTPUT);
-
   pinMode(redPin, OUTPUT);
   pinMode(greenPin,OUTPUT);
 
@@ -65,7 +63,8 @@ void loop()
   str.toLowerCase();
   if (str == "tv")
   {
-    irsend.sendSony(0xFE50AF, 32);
+  //  IRsend irsend;
+  //  irsend.sendSony(0xFE50AF, 32);
   }
   /*else if (str == "r")
   {
@@ -85,6 +84,7 @@ void loop()
   else if (str == "thl")
   {
    // delay(1000);
+    //str="ok";
     send_data();
   }
    if (ck_flood())
@@ -96,13 +96,17 @@ void loop()
 
 void  send_data()
 {
-  StaticJsonBuffer<200> jsonBuffer;
+   StaticJsonBuffer<200> jsonBuffer;
   JsonObject& root = jsonBuffer.createObject();
   root["temp"] = get_temperature();
   root["humidity"] = get_humidity();
   root["lumina"] = get_brightness();
   root["alarm"] =  ck_flood();
   root.printTo(Serial);
+  Serial.println();
+ // root[""]="";
+//  root.printTo(Serial);
+ // jsonBuffer.clear();
 }
 
 void  transmit_data()
@@ -206,10 +210,10 @@ void alarm()
     sinVal = (sin(x*(3.1412/180)));
     // generate a frequency from the sin value
     toneVal = 2000+(int(sinVal*1000));
-    NewTone(ALARM, toneVal);
+   // NewTone(ALARM, toneVal);
   }
   alarm_led();
-  noNewTone(ALARM);
+//  noNewTone(ALARM);
 }
 
 void  alarm_led()

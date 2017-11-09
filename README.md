@@ -1,6 +1,6 @@
-# IoT558
+# Paranoid
 
-IoT558 is Yet Another Arduino IoT Web App written in HTML with elements of javascript and PHP. 
+Paranoid is Yet Another Arduino IoT Web App written in HTML with elements of javascript and PHP. 
 
   - [Collect] Send sensor data to a webserver 
   - [Analyze] Analyze and visualize your data
@@ -24,6 +24,9 @@ IoT558 is Yet Another Arduino IoT Web App written in HTML with elements of javas
 * Webserver (we used self hosted on Raspberry Pi using NGINX) 
     * PHP
 
+### Hackathon
+
+This is a product of the #HomeHackers Hackathon 26.03.2016 held by Academy+Plus, a collaboration between Bira Gabriel (MVP), Chindris Mihai, Chirila Cezar, Daniel Lupaescu and Onaci Alexandru.
 
 
-# IoT558
+

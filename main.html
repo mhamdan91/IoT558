@@ -5,6 +5,13 @@
 	<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<style>
+line {
+   	width: 4000px;
+ 	border-top: 3px solid #f8f8f8;
+ 	border-bottom: 1px solid rgba(0, 0, 0, 0.2)
+     }
+</style>
 </head>
 <body id="main-body">
 <nav class="navbar navbar-inverse">
@@ -17,7 +24,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand">Weclome to Home II</a>
+      <a class="navbar-brand">Weclome to Home I</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -28,7 +35,7 @@
 	  
 	   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="main.html">Go To Home I</a></li>
+        <li><a href="main2.html">Go To Home II</a></li>
       </ul>
       <!-- <ul class="nav navbar-nav navbar-right">
         <li><a href="#">Sign up <i class="fa fa-user-plus"></i></a></li>
@@ -43,41 +50,69 @@
   </div>
 
   <div class="row text-center">
-    <div class="col-sm-2 col-sm-offset-1" class="jobs">
+	<h2>First Floor Monitor --- Arduino I</h2><br />
+    <div class="col-sm-2 col-sm-offset-3" class="jobs">
       <h2 class="header-default" class="jobs-header"><img id="luminosity" width=90 src="img/off.png"></h2>
       <h3 id="humi">Light: </h3>
+	  <button type="button" id="led-button" class="btn btn-danger"><span class="glyphicon glyphicon-off"></span>On/Off</button>
+	  	      <br /><br />
+		 <h5>Arduino Time Stamp :</h5>
+		 <h5>Server  Time Stamp :</h5>
+		 <h5>Display Time Stamp :</h5>
     </div>
 
-    <div class="col-sm-2" class="jobs">
-      <h2 class="header-default" class="jobs-header"><img width=120 src="img/TV.png"></h2>
-      <h3>TV</h3>
-        <button type="button" id="tv-button" class="btn btn-danger"><span class="glyphicon glyphicon-off"></span>On/Off</button>
-
-    
-    </div>
     <div class="col-sm-2" class="jobs">
       <h2 class="header-default" class="jobs-header"><img width=170 src="img/temp.png"></h2>
       <h3>Temperature: </h3>
       <div id="temp"></div>
+	      <br /><br /><br />
+		 <h5>Arduino Time Stamp :</h5>
+		 <h5>Server  Time Stamp :</h5>
+		 <h5>Display Time Stamp :</h5>
     </div>
     <div class="col-sm-2" class="jobs">
       <h2 class="header-default" class="jobs-header"><img width=120 src="img/hum.png"></h2>
       <h3>Humidity: </h3>
       <div id="hum"></div>
+	      <br /><br /><br />
+		 <h5>Arduino Time Stamp :</h5>
+		 <h5>Server  Time Stamp :</h5>
+		 <h5>Display Time Stamp :</h5>
     </div>
-    <div class="col-sm-2" class="jobs">
-      <h2 class="header-default" class="jobs-header"><img id="alarm" width=110 src="img/houseOK.png"></h2>
-     <h3>Flood Alarm</h3>
-	<div id="alarm"></div> 
- </div>
   </div>
-
+   <div class="row text-center">
+	<!-- <h3>--------------------------------------------------------------------------------------------------------------------------------------------------</h3>
+     <hr style="border-bottom: 2px dashed grey;" />
+	 <hr style="border-style: 2px dashed black; width: 1170px; " />-->
+	<hr style="border-top: 1px dashed grey;width: 1500px;"/>
+	<h2>Basement Monitor --- Arduino II</h2><br />
+    <div class="col-sm-2 col-sm-offset-4" class="jobs">
+      <h2 class="header-default" class="jobs-header"><img width=120 src="img/motion.png"></h2>
+      <h3>Motion Detection</h3>
+	  <div id="motion"></div> 
+	      <br /><br />
+		 <h5>Arduino Time Stamp :</h5>
+		 <h5>Server  Time Stamp :</h5>
+		 <h5>Display Time Stamp :</h5>
+    
+    </div>
+	<div class="col-sm-2" class="jobs">
+      <h2 class="header-default" class="jobs-header"><img id="alarm" width=110 src="img/houseOK.png"></h2>
+      <h3>Flood Alarm</h3>
+	      <br /><br />
+		 <h5>Arduino Time Stamp :</h5>
+		 <h5>Server  Time Stamp :</h5>
+		 <h5>Display Time Stamp :</h5>
+	</div>
+	
+	
+	</div>
 
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.1.min.js"></script>
 <script>
 var url="relay.php?command=";
-
+var url_2="relay2.php?command=";
 function activateRelay()
 {
 $.get(url + "r")
@@ -86,7 +121,7 @@ $.get(url + "r")
 		});
  }
 
-function getLuminosityTemperatureHumidity(){
+function getTemperatureHumidity(){
     $.get(url + "thl")
 	.success( function(data){ 
 	    if(data!=="abc"){
@@ -103,18 +138,48 @@ function getLuminosityTemperatureHumidity(){
 	})
 }
 
-function switchTV(){
-   $.get(url + "tv")
-	.success( function(data){
-	   $("#tv-button").hasClass("btn-danger") === true ? 
-		$("#tv-button").removeClass("btn-danger").addClass("btn-success") : 
-		$("#tv-button").removeClass("btn-success").addClass("btn-danger"); 
+function getMotionFloorAlarm(){
+    $.get(url_2 + "molarm")
+	.success( function(data){ 
+	    if(data!=="abc"){
+		  var light = $("#alarm").attr('src');
+	      var houseOk = "img/houseOK.png";
+	      var houseNOk = "img/houseNOK.png"; 
+	      var parsedJSON = JSON.parse(data);
+		  var activeMo="Motion Detected!!";
+		  var inctiveMo="No Motion Detected";
+		  $("#alarm").attr('src', parsedJSON.alarm ? houseOk : houseNOk) ;
+	      $("#motion").html(parsedJSON.ping ? activeMo : inctiveMo);
+	    }
 	})
 }
 
+function switchLedON(){
+   $.get(url + "ledon")
+	.success( function(data){
+	   $("#led-button").hasClass("btn-danger") === true ? 
+	   $("#led-button").removeClass("btn-danger").addClass("btn-success") : 
+	  <!-- $("#led-button").removeClass("btn-success").addClass("btn-danger"); -->
+	})
+}
+
+
+function switchLedoff(){
+   $.get(url + "ledoff")
+	.success( function(data){
+	   $("#led-button").hasClass("btn-danger") === true ? 
+	   $("#led-button").removeClass("btn-danger").addClass("btn-success") : 
+	  <!-- $("#led-button").removeClass("btn-success").addClass("btn-danger"); -->
+	})
+}
+
+
 //event binders
-$("#tv-button").click(switchTV);
-setInterval(getLuminosityTemperatureHumidity,10000);
+$("#led-button").click(switchLedoff);
+$("#led-button").click(switchLedON);
+setInterval(getTemperatureHumidity,10000);
+setInterval(getMotionFloorAlarm,6000);
+
 </script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </body>
